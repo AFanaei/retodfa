@@ -53,6 +53,7 @@ function parse(str,start,end){
         next.end.isEnd=false;
         end.addChild('-1', post);
         next.end.addChild('-1',post);
+        return {start:pre,end:post};
     }else if(str[0]=='('){
         var i=1;
         var j=0;
