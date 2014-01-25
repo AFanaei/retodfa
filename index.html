@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8">
     <title>automata!!!</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
 <label>enter your RE:</label>
@@ -10,12 +12,16 @@
 <div id="automata"></div>
 </body>
 <script src="vendor/jquery-1.11.0.js"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="js/node.js"></script>
 <script src="js/parse.js"></script>
+<script src="js/visual.js"></script>
 <script type="text/javascript">
     $('#submit').click(function(){
         var temp = parse($('#re').val(),null,null);
         console.log(temp);
+        var links = getLinks(temp.start);
+        console.log(links);
     });
 </script>
 </html>

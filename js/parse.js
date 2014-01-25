@@ -3,13 +3,16 @@
 * | needs special work
 * ( needs special work
  */
+var index=0;
+
 function parse(str,start,end){
     if(str==''){
         return {start: start, end: end};
     }else if(str[0]=='0' || str[0]=='1'){
         var temp = getSimpleNode(str[0]);
         if(end){
-            end.isEnd=0;
+            end.isEnd=false;
+            temp.start.isStart=false;
             end.addChild('-1',temp.start);
         }else{
             start=temp.start;
@@ -19,11 +22,14 @@ function parse(str,start,end){
         str = newStr.join('');
         return parse(str,start,temp.end);
     }else if(str[0]=='*'){
-        var pre = new Node(true,false);
-        var post = new Node(false,true);
+        var pre = new Node(index,true,false);
+        index++;
+        var post = new Node(index,false,true);
+        index++;
         pre.addChild('-1',post);
         post.addChild('-1',pre);
         pre.addChild('-1',start);
+        start.isStart=false;
         end.isEnd=false;
         end.addChild('-1',post);
         var newStr = str.split('');
@@ -35,8 +41,12 @@ function parse(str,start,end){
         newStr.splice(0,1);
         str = newStr.join('');
         var next = parse(str,null,null);
-        var pre = new Node(true,false);
-        var post = new Node(false,true);
+        var pre = new Node(index,true,false);
+        index++;
+        var post = new Node(index,false,true);
+        index++;
+        start.isStart=false;
+        next.start.isStart=false;
         pre.addChild('-1',start);
         pre.addChild('-1',next.start);
         end.isEnd=false;
@@ -61,6 +71,7 @@ function parse(str,start,end){
         var res = parse(strstr,null,null);
         if(end){
             end.isEnd=false;
+            res.start.isStart=false;
             end.addChild('-1',res.start);
         }else{
             start=res.start;
@@ -69,8 +80,10 @@ function parse(str,start,end){
     }
 }
 function getSimpleNode(char){
-    var start=new Node(true,false);
-    var end = new Node(false,true);
+    var start=new Node(index,true,false);
+    index++;
+    var end = new Node(index,false,true);
+    index++;
     start.addChild(char,end);
     var temp={start: start, end: end};
     return temp;
