@@ -14,7 +14,9 @@ function parse(str,start,end){
         }else{
             start=temp.start;
         }
-        str.splice(0,1);
+        var newStr = str.split('');
+        newStr.splice(0,1);
+        str = newStr.join('');
         return parse(str,start,temp.end);
     }else if(str[0]=='*'){
         var pre = new Node(true,false);
@@ -24,10 +26,14 @@ function parse(str,start,end){
         pre.addChild('-1',start);
         end.isEnd=false;
         end.addChild('-1',post);
-        str.splice(0,1);
+        var newStr = str.split('');
+        newStr.splice(0,1);
+        str = newStr.join('');
         return parse(str,pre,post);
     }else if(str[0]=='|'){
-        str.splice(0,1);
+        var newStr = str.split('');
+        newStr.splice(0,1);
+        str = newStr.join('');
         var next = parse(str,null,null);
         var pre = new Node(true,false);
         var post = new Node(false,true);
@@ -48,7 +54,10 @@ function parse(str,start,end){
             }
             i++;
         }
-        var strstr = str.splice(1,i-2);
+        var newStr = str.split('');
+        var strstr = newStr.splice(1,i-2);
+        str = newStr.join('');
+        strstr = strstr.join('');
         var res = parse(strstr,null,null);
         if(end){
             end.isEnd=false;

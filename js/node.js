@@ -1,13 +1,13 @@
 function Node(isStart,isEnd){
-    var childs = {};
+    this.childs = {};
     this.isStart = isStart;
     this.isEnd = isEnd;
     this.addChild = function(alpha, node){
         node.isStart = false;
-        if(!childs[alpha]){
-            childs[alpha]=[];
+        if(!this.childs[alpha]){
+            this.childs[alpha]=[];
         }
-        childs[alpha].push(node);
+        this.childs[alpha].push(node);
     }
     return this;
 }
