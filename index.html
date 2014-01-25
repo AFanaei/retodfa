@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>automata!!!</title>
+    <script src="js/node.js"></script>
+    <script src="js/parse.js"></script>
+    <script src="vendor/jquery-1.11.0.js"></script>
+    <script type="text/javascript">
+        $('#subbmit').click(function(){
+            var temp = parse($('#re').val(),null,null);
+            console.log(temp);
+        });
+    </script>
+</head>
+<body>
+<label>enter your RE:</label>
+<input type="text" id="re">
+<input type="button" id="subbmit" value="enter!">
+<div id="automata"></div>
+</body>
+</html>
