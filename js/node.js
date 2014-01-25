@@ -1,6 +1,6 @@
 function Node(value , isStart,isEnd){
     this.childs = {};
-    this.value=value;
+    this.value='a'+value;
     this.isStart = isStart;
     this.isEnd = isEnd;
     this.addChild = function(alpha, node){
