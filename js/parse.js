@@ -67,6 +67,7 @@ function parse(str,start,end){
         }
         var newStr = str.split('');
         var strstr = newStr.splice(1,i-2);
+        newStr.splice(0,2);
         str = newStr.join('');
         strstr = strstr.join('');
         var res = parse(strstr,null,null);
@@ -80,6 +81,7 @@ function parse(str,start,end){
         return parse(str,start,res.end);
     }
 }
+
 function getSimpleNode(char){
     var start=new Node(index,true,false);
     index++;

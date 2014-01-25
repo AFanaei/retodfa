@@ -9,20 +9,24 @@
 <label>enter your RE:</label>
 <input type="text" id="re" value="0">
 <input type="button" id="submit" value="enter!" class="ahmad">
-<div id="automata"></div>
+<div id="nfa"></div>
+<div id="dfa"></div>
 </body>
 <script src="vendor/jquery-1.11.0.js"></script>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="js/node.js"></script>
 <script src="js/parse.js"></script>
+<script src="js/dfa.js"></script>
 <script src="js/visual.js"></script>
 <script type="text/javascript">
     $('#submit').click(function(){
         var temp = parse($('#re').val(),null,null);
-        console.log(temp);
         var links = getLinks(temp.start);
+        drawVisual(links,"nfa");
+        var links = nfaToDfa(temp.start);
+        drawVisual(links,"dfa");
         console.log(links);
-        drawVisual(links);
+// 1 0 1 2 3 3
     });
 </script>
 </html>
