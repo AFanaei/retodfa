@@ -100,8 +100,8 @@ function drawVisual(links,node,str){
         circle.attr("transform", transform);
         text.attr("transform", transform);
         linktext.attr("transform", function(d) {
-            var mainx = (d.source.x + d.target.x) / 2 + (d.source.x - d.target.x);
-            var mainy =(d.source.y + d.target.y) / 2 + (d.source.y - d.target.y);
+            var mainx = (d.source.x + d.target.x) / 2 + (d.source.x - d.target.x)/10;
+            var mainy =(d.source.y + d.target.y) / 2 + (d.source.y - d.target.y)/10;
             return "translate(" + mainx + ","
                 + mainy + ")"; });
     }
