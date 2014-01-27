@@ -10,6 +10,26 @@ function parse(str,start,end){
         return {start: start, end: end};
     }else if(str[0]=='0' || str[0]=='1'){
         var temp = getSimpleNode(str[0]);
+        var newStr = str.split('');
+        newStr.splice(0,1);
+        str = newStr.join('');
+        if(str[0]=='*'){
+            var pre = new Node(index,true,false);
+            index++;
+            var post = new Node(index,false,true);
+            index++;
+            pre.addChild('-1',post);
+            post.addChild('-1',pre);
+            pre.addChild('-1',temp.start);
+            temp.start.isStart=false;
+            temp.end.isEnd=false;
+            temp.end.addChild('-1',post);
+            var newStr = str.split('');
+            newStr.splice(0,1);
+            str = newStr.join('');
+            temp.start=pre;
+            temp.end=post;
+        }
         if(end){
             end.isEnd=false;
             temp.start.isStart=false;
@@ -17,25 +37,7 @@ function parse(str,start,end){
         }else{
             start=temp.start;
         }
-        var newStr = str.split('');
-        newStr.splice(0,1);
-        str = newStr.join('');
         return parse(str,start,temp.end);
-    }else if(str[0]=='*'){
-        var pre = new Node(index,true,false);
-        index++;
-        var post = new Node(index,false,true);
-        index++;
-        pre.addChild('-1',post);
-        post.addChild('-1',pre);
-        pre.addChild('-1',start);
-        start.isStart=false;
-        end.isEnd=false;
-        end.addChild('-1',post);
-        var newStr = str.split('');
-        newStr.splice(0,1);
-        str = newStr.join('');
-        return parse(str,pre,post);
     }else if(str[0]=='|'){
         var newStr = str.split('');
         newStr.splice(0,1);
@@ -71,6 +73,23 @@ function parse(str,start,end){
         str = newStr.join('');
         strstr = strstr.join('');
         var res = parse(strstr,null,null);
+        if(str[0]=='*'){
+            var pre = new Node(index,true,false);
+            index++;
+            var post = new Node(index,false,true);
+            index++;
+            pre.addChild('-1',post);
+            post.addChild('-1',pre);
+            pre.addChild('-1',res.start);
+            res.start.isStart=false;
+            res.end.isEnd=false;
+            res.end.addChild('-1',post);
+            var newStr = str.split('');
+            newStr.splice(0,1);
+            str = newStr.join('');
+            res.start=pre;
+            res.end=post;
+        }
         if(end){
             end.isEnd=false;
             res.start.isStart=false;

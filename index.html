@@ -14,18 +14,20 @@
 </body>
 <script src="vendor/jquery-1.11.0.js"></script>
 <script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="js/dfa.js"></script>
 <script src="js/node.js"></script>
 <script src="js/parse.js"></script>
-<script src="js/dfa.js"></script>
 <script src="js/visual.js"></script>
 <script type="text/javascript">
     $('#submit').click(function(){
         var temp = parse($('#re').val(),null,null);
-        var links = getLinks(temp.start);
-        drawVisual(links,"nfa");
-        var links = nfaToDfa(temp.start);
-        drawVisual(links,"dfa");
-        console.log(links);
+        var res = getLinksAndNodes(temp.start);
+        drawVisual(res.links,res.nodes,"nfa");
+        temp = nfaToDfa(temp.start,temp.end.value);
+        res = getLinksAndNodes(temp);
+        res = simplifyLinksAndNodesDfa(res);
+        drawVisual(res.links,res.nodes,"dfa");
+//        console.log(links);
 // 1 0 1 2 3 3
     });
 </script>

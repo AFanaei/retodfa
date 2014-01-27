@@ -11,9 +11,9 @@ function Node(value , isStart,isEnd){
     }
     return this;
 }
-function getLinks(startNode){
+function getLinksAndNodes(startNode){
     var links=[];
-    var visited=[];
+    var visited={};
     (function mover(start){
         if(start==null){
             return;
@@ -21,15 +21,16 @@ function getLinks(startNode){
         if(visited[start.value]){
             return;
         }
-        visited[start.value]=1;
+        visited[start.value]=start.isStart*100+start.isEnd*10+1;
         for( var key in start.childs){
             if(start.childs.hasOwnProperty(key)){
                 for(var j=0;j<start.childs[key].length;j++){
-                    links.push({source: start.value,target: start.childs[key][j].value,type:key});
+//                    links.push({source: start.value,target: start.childs[key][j].value,type:key});
+                    links = insertInto(links,start.value,start.childs[key][j].value,key);
                     mover(start.childs[key][j]);
                 }
             }
         }
     })(startNode);
-    return links;
+    return {links:links,nodes:visited};
 }

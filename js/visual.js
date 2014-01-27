@@ -1,7 +1,18 @@
-function drawVisual(links,str){
+function drawVisual(links,node,str){
     var nodes = {};
+    for(var key in node){
+        var obj={};
+        obj.name=key+'';
+        if(node[key]==101){
+            obj.isStartA=1;
+        }
+        if(node[key]==11){
+            obj.isEndA=1;
+        }
+        nodes[key]=obj;
+    }
 
-// Compute the distinct nodes from the links.
+//Compute the distinct nodes from the links.
     links.forEach(function(link) {
         link.source = nodes[link.source] || (nodes[link.source] = {name: link.source});
         link.target = nodes[link.target] || (nodes[link.target] = {name: link.target});
@@ -55,6 +66,16 @@ function drawVisual(links,str){
         .data(force.nodes())
         .enter().append("circle")
         .attr("r", "1em")
+        .attr("class",function(d){
+            var str="";
+            if(d.isStartA){
+                str+="start "
+            }
+            if(d.isEndA){
+                str+="end ";
+            }
+            return str;
+        })
         .call(force.drag);
 
     var text = svg.append("g").selectAll("text")

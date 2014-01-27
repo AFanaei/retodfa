@@ -1,4 +1,5 @@
-function nfaToDfa(start){
+function nfaToDfa(start,endVal){
+    endVal=endVal+'';
     var nodes={};
     var visited={};
     var closureStart = getConnections([start]);
@@ -13,7 +14,11 @@ function nfaToDfa(start){
         var newNodes = getConnectionsWithChar(cNodes,'0');
         var labels = getLabel(newNodes);
         if(!nodes[labels]){
-            var nod = new Node(labels,false,false);
+            var isEnd=false;
+            if(labels.indexOf(endVal)!=-1){
+                isEnd=true;
+            }
+            var nod = new Node(labels,false,isEnd);
             nodes[labels]=nod;
         }
         start.addChild('0',nodes[labels]);
@@ -23,14 +28,18 @@ function nfaToDfa(start){
         newNodes = getConnectionsWithChar(cNodes,'1');
         labels = getLabel(newNodes);
         if(!nodes[labels]){
-            var nod = new Node(labels,false,false);
+            var isEnd=false;
+            if(labels.indexOf(endVal)!=-1){
+                isEnd=true;
+            }
+            var nod = new Node(labels,false,isEnd);
             nodes[labels]=nod;
         }
         start.addChild('1',nodes[labels]);
         links = insertInto(links,start.value,labels,'1');
         nextNode(newNodes,nodes[labels]);
     })(closureStart,dfaStart);
-    return links;
+    return dfaStart;
 }
 function insertInto(links,start,end,type){
     for(key in links){
@@ -108,4 +117,17 @@ function getLabel(nodes){
         }
     }
     return vals.join(',');
+}
+function simplifyLinksAndNodesDfa(res){
+    var j=1;
+    var visited={E:'E'};
+    for(var i=0;i<res.links.length;i++){
+        res.links[i].source=visited[res.links[i].source] || (visited[res.links[i].source]='a'+(j++));
+        res.links[i].target=visited[res.links[i].target] || (visited[res.links[i].target]='a'+(j++));
+    }
+    var nodes=[];
+    for(var key in res.nodes){
+        nodes[visited[key]]=res.nodes[key];
+    }
+    return {links:res.links,nodes:nodes};
 }
