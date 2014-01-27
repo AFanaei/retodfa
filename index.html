@@ -45,6 +45,8 @@
     <script src="js/visual.js"></script>
     <script type="text/javascript">
         $('#submit').click(function(){
+            $('#nfa').html('');
+            $('#dfa').html('');
             var temp = parse($('#re').val(),null,null);
             var res = getLinksAndNodes(temp.start);
             drawVisual(res.links,res.nodes,"nfa");
