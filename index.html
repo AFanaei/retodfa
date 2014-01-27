@@ -1,71 +1,72 @@
 <!DOCTYPE html>
-  <head>
+<head>
     <meta charset='utf-8' />
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
     <meta name="description" content="Retodfa : convert regular expression into nfa and dfa using d3!" />
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/style.css">
 
     <title>Retodfa</title>
-  </head>
+</head>
 
-  <body>
+<body>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/jajool/retodfa">View on GitHub</a>
+<!-- HEADER -->
+<div id="header_wrap" class="outer">
+    <header class="inner">
+        <a id="forkme_banner" href="https://github.com/jajool/retodfa">View on GitHub</a>
 
-          <h1 id="project_title">Retodfa</h1>
-          <h2 id="project_tagline">convert regular expression into nfa and dfa using d3!</h2>
+        <h1 id="project_title">Retodfa</h1>
+        <h2 id="project_tagline">convert regular expression into nfa and dfa using d3!</h2>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/jajool/retodfa/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/jajool/retodfa/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
+        <section id="downloads">
+            <a class="zip_download_link" href="https://github.com/jajool/retodfa/zipball/master">Download this project as a .zip file</a>
+            <a class="tar_download_link" href="https://github.com/jajool/retodfa/tarball/master">Download this project as a tar.gz file</a>
+        </section>
+    </header>
+</div>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
+<!-- MAIN CONTENT -->
+<div id="main_content_wrap" class="outer">
+    <section id="main_content" class="inner">
         <p>i created this repository for my automata course at university using only javascript and d3.</p>
-      </section>
         <label>enter your RE:</label>
         <input type="text" id="re" value="0">
         <input type="button" id="submit" value="enter!" class="ahmad">
         <div id="nfa"></div>
         <div id="dfa"></div>
-<script src="vendor/jquery-1.11.0.js"></script>
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="js/dfa.js"></script>
-<script src="js/node.js"></script>
-<script src="js/parse.js"></script>
-<script src="js/visual.js"></script>
-<script type="text/javascript">
-    $('#submit').click(function(){
-        var temp = parse($('#re').val(),null,null);
-        var res = getLinksAndNodes(temp.start);
-        drawVisual(res.links,res.nodes,"nfa");
-        temp = nfaToDfa(temp.start,temp.end.value);
-        res = getLinksAndNodes(temp);
-        res = simplifyLinksAndNodesDfa(res);
-        drawVisual(res.links,res.nodes,"dfa");
+    </section>
+    <script src="vendor/jquery-1.11.0.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="js/dfa.js"></script>
+    <script src="js/node.js"></script>
+    <script src="js/parse.js"></script>
+    <script src="js/visual.js"></script>
+    <script type="text/javascript">
+        $('#submit').click(function(){
+            var temp = parse($('#re').val(),null,null);
+            var res = getLinksAndNodes(temp.start);
+            drawVisual(res.links,res.nodes,"nfa");
+            temp = nfaToDfa(temp.start,temp.end.value);
+            res = getLinksAndNodes(temp);
+            res = simplifyLinksAndNodesDfa(res);
+            drawVisual(res.links,res.nodes,"dfa");
 //        console.log(links);
 // 1 0 1 2 3 3
-    });
-</script>
-    </div>
+        });
+    </script>
+</div>
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
+<!-- FOOTER  -->
+<div id="footer_wrap" class="outer">
+    <footer class="inner">
         <p class="copyright">Retodfa maintained by <a href="https://github.com/jajool">jajool</a></p>
         <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
+    </footer>
+</div>
 
-    
 
-  </body>
+
+</body>
 </html>
